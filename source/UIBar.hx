@@ -41,7 +41,7 @@ class UIBar extends FlxGroup
         for(i in 0...this.informations.length) {
             var tab = new FlxText(0,0,0,informations[i].text,20);
             tab.font = font;
-            tab.y = back.y+back.height/2-t.height/2;
+            tab.y = back.y+back.height/2-tab.height/2;
             tab.ID = i;
             listGroup.add(tab);
 

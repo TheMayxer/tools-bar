@@ -7,7 +7,6 @@ import flixel.text.FlxText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
 import flixel.FlxSprite;
-import flixel.FlxObject;
 
 class UIBar extends FlxGroup
 {
@@ -17,6 +16,7 @@ class UIBar extends FlxGroup
     var listGroup:FlxTypedGroup<FlxText>;
     var optionsGroup:FlxTypedGroup<FlxText>;
     var objIndex = null;
+    var font = 'assets/fonts/vcr.ttf';
 
     public function new(list:Array<Dynamic>) {
         super();
@@ -40,8 +40,8 @@ class UIBar extends FlxGroup
 
         for(i in 0...this.informations.length) {
             var tab = new FlxText(0,0,0,informations[i].text,20);
-            tab.font = 'assets/data/font/vcr.ttf';
-            tab.y = back.y+back.height/2-t.height/2;
+            tab.font = font;
+            tab.y = back.y+back.height/2-tab.height/2;
             tab.ID = i;
             listGroup.add(tab);
 
@@ -80,7 +80,7 @@ class UIBar extends FlxGroup
 
         for(i in 0...this.informations[objIndex].namesList.length) {
             var newText = new FlxText(obj.x+5,(back.y+back.height)+5,0,this.informations[objIndex].namesList[i],20);
-            newText.font = 'assets/data/font/vcr.ttf';
+            newText.font = font;
             newText.ID = i;
             optionsGroup.add(newText);
 
