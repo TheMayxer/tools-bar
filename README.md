@@ -7,4 +7,6 @@ Você pode aplicar mais abas e funções (veja o arquivo example para ver como f
 
 O codigo foi testado para windows ou desktop (flash ou neko nao funcionam HA)
 
+(ainda sujeito a atualizações)
+
 <img src="https://i.imgur.com/kmaoH3h.png">
