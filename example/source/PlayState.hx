@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxState;
 import flixel.FlxG;
+import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
@@ -24,7 +25,7 @@ class PlayState extends FlxState
 	{
 		if(FlxG.sound.music==null) FlxG.sound.playMusic('assets/music/coolMusic.ogg',0.8,true);
 
-		bar = new UIBar(swagInformations);
+		bar = new UIBar(swagInformations, true, 'assets/fonts/vcr.ttf', FlxColor.PURPLE);
 		add(bar);
 
 		super.create();

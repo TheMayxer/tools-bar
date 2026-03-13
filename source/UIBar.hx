@@ -16,22 +16,35 @@ class UIBar extends FlxGroup
     var listGroup:FlxTypedGroup<FlxText>;
     var optionsGroup:FlxTypedGroup<FlxText>;
     var objIndex = null;
-    var font = 'assets/fonts/vcr.ttf';
 
-    public function new(list:Array<Dynamic>) {
+    var textProperties = {
+        font: '',
+        textColor: FlxColor.WHITE,
+        textSize: 20,
+        border: false,
+        borderColor: FlxColor.BLACK
+    };
+
+    public function new(list:Array<Dynamic>, ?border:Bool = false, font:String, color:FlxColor,?textSize:Float = 20,?textColor:FlxColor = FlxColor.WHITE, ?borderColor:FlxColor  = FlxColor.BLACK) {
         super();
 
         this.informations = list;
 
+        this.textProperties.font = font;
+        this.textProperties.textSize = Std.int(textSize);
+        this.textProperties.textColor = textColor;
+        this.textProperties.border = border;
+        this.textProperties.borderColor = borderColor;
+
         back = new FlxSprite();
-        back.makeGraphic(FlxG.width, 30, FlxColor.BLUE);
+        back.makeGraphic(FlxG.width, 30, color);
         add(back);
 
         listGroup = new FlxTypedGroup<FlxText>();
         add(listGroup);
 
         optionsBack = new FlxSprite();
-        optionsBack.makeGraphic(1,1,FlxColor.BLUE);
+        optionsBack.makeGraphic(1,1,color);
         optionsBack.visible = false;
         add(optionsBack);
 
@@ -39,9 +52,10 @@ class UIBar extends FlxGroup
         add(optionsGroup);
 
         for(i in 0...this.informations.length) {
-            var tab = new FlxText(0,0,0,informations[i].text,20);
-            tab.font = font;
+            var tab = new FlxText(0,0,0,informations[i].text,textProperties.textSize);
+            tab.font = textProperties.font;
             tab.y = back.y+back.height/2-tab.height/2;
+            if(textProperties.border == true) tab.setFormat(textProperties.font, textProperties.textSize, textProperties.textColor, LEFT, OUTLINE, textProperties.borderColor);
             tab.ID = i;
             listGroup.add(tab);
 
@@ -79,9 +93,10 @@ class UIBar extends FlxGroup
         var biggestWidthMember:Array<Float> = [];
 
         for(i in 0...this.informations[objIndex].namesList.length) {
-            var newText = new FlxText(obj.x+5,(back.y+back.height)+5,0,this.informations[objIndex].namesList[i],20);
-            newText.font = font;
+            var newText = new FlxText(obj.x+5,(back.y+back.height)+5,0,this.informations[objIndex].namesList[i],textProperties.textSize);
+            newText.font = textProperties.font;
             newText.ID = i;
+            if(textProperties.border == true) newText.setFormat(textProperties.font, textProperties.textSize, textProperties.textColor, LEFT, OUTLINE, textProperties.borderColor);
             optionsGroup.add(newText);
 
             if(optionsGroup.members[i-1]!=null) newText.y = optionsGroup.members[i-1].y+optionsGroup.members[i-1].height+5;
