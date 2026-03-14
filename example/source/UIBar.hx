@@ -8,6 +8,14 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
 import flixel.FlxSprite;
 
+typedef TextProperties = {
+    var font:String;
+    var textColor:FlxColor;
+    var textSize:Int;
+    var border:Bool;
+    var borderColor:FlxColor;
+};
+
 class UIBar extends FlxGroup
 {
     var back:FlxSprite;
@@ -17,24 +25,21 @@ class UIBar extends FlxGroup
     var optionsGroup:FlxTypedGroup<FlxText>;
     var objIndex = null;
 
-    var textProperties = {
-        font: '',
-        textColor: FlxColor.WHITE,
-        textSize: 20,
-        border: false,
-        borderColor: FlxColor.BLACK
-    };
+    var textProperties:TextProperties;
 
     public function new(list:Array<Dynamic>, ?border:Bool = false, font:String, color:FlxColor,?textSize:Float = 20,?textColor:FlxColor = FlxColor.WHITE, ?borderColor:FlxColor  = FlxColor.BLACK) {
         super();
 
         this.informations = list;
 
-        this.textProperties.font = font;
-        this.textProperties.textSize = Std.int(textSize);
-        this.textProperties.textColor = textColor;
-        this.textProperties.border = border;
-        this.textProperties.borderColor = borderColor;
+        this.textProperties = {
+            font: font,
+            textSize: Std.int(textSize),
+            textColor: textColor,
+            border: border,
+            borderColor: borderColor
+        };
+
 
         back = new FlxSprite();
         back.makeGraphic(FlxG.width, 30, color);
@@ -70,7 +75,7 @@ class UIBar extends FlxGroup
             if(FlxG.mouse.justPressed) {
                 if(FlxG.mouse.overlaps(optionsBack)) {
                     optionsGroup.forEachExists(function(obj:FlxText){
-                        if(FlxG.mouse.overlaps(obj)&&FlxG.mouse.justPressed) this.informations[objIndex].onClick[obj.ID]();
+                        if(FlxG.mouse.overlaps(obj)) this.informations[objIndex].onClick[obj.ID]();
                     });
                 } else {
                     optionsBack.visible = false;
